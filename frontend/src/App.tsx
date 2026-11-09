@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import mataAtlantica from './assets/mata-atlantica.webp'
-import basilicaAparecida from './assets/basilica-aparecida.webp'
+import UpcomingDepartures from './UpcomingDepartures'
 import './App.css'
 
 const navigation = [
@@ -108,41 +108,7 @@ function App() {
           </div>
         </section>
 
-        <section
-          className="container departures"
-          id="proximas-saidas"
-          aria-labelledby="titulo-saidas"
-          tabIndex={-1}
-        >
-          <h2 className="section-label" id="titulo-saidas">Próximas saídas</h2>
-
-          <article className="departure-card" aria-labelledby="titulo-aparecida">
-            <img
-              className="departure-image"
-              src={basilicaAparecida}
-              alt="Vista da Basílica de Nossa Senhora Aparecida"
-              width={840}
-              height={560}
-              decoding="async"
-            />
-
-            <div className="departure-copy">
-              <span className="status-label">Em planejamento</span>
-              <h3 id="titulo-aparecida">Aparecida</h3>
-              <p>Excursão de van para visitar o Santuário Nacional de Aparecida.</p>
-            </div>
-
-            <details className="departure-details">
-              <summary className="button-link button-outline">
-                Detalhes da viagem
-                <svg className="icon details-arrow" aria-hidden="true" viewBox="0 0 24 24">
-                  <path d="m9 6 6 6-6 6" />
-                </svg>
-              </summary>
-              <p>Divulgaremos a data, os horários e os embarques quando a saída estiver definida.</p>
-            </details>
-          </article>
-        </section>
+        <UpcomingDepartures />
 
         <section
           className="container features"

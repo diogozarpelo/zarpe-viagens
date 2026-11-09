@@ -17,6 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from excursions.views import UpcomingDepartureList
+
 urlpatterns = [
+    path(
+        'api/departures/upcoming/',
+        UpcomingDepartureList.as_view(),
+        name='upcoming-departures',
+    ),
     path('admin/', admin.site.urls),
 ]

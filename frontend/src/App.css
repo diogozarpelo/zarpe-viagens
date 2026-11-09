@@ -244,6 +244,34 @@ h1 em::after {
   box-shadow: 0 2px 8px #19372814;
 }
 
+.departure-card + .departure-card {
+  margin-top: 0.75rem;
+}
+
+.departure-message {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 1.3rem;
+  background: var(--white);
+  color: var(--text-muted);
+}
+
+.departure-copy {
+  overflow-wrap: anywhere;
+}
+
+.departure-image-placeholder {
+  display: grid;
+  place-items: center;
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.departure-image-placeholder .icon {
+  width: 2rem;
+  height: 2rem;
+}
+
 .departure-image {
   width: 100%;
   height: auto;
