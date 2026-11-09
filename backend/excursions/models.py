@@ -5,6 +5,7 @@ class Itinerary(models.Model):
     title = models.CharField("título", max_length=120)
     slug = models.SlugField("identificador da URL", max_length=140, unique=True)
     description = models.TextField("descrição")
+    program = models.TextField("programação", blank=True, default="")
 
     class Meta:
         verbose_name = "roteiro"
@@ -34,6 +35,19 @@ class Departure(models.Model):
     )
     starts_at = models.DateTimeField("data e horário de saída", blank=True, null=True)
     capacity = models.PositiveIntegerField("capacidade total", blank=True, null=True)
+    price_per_person = models.DecimalField(
+        "preço por pessoa (R$)",
+        max_digits=8,
+        decimal_places=2,
+        blank=True,
+        null=True,
+    )
+    boarding_points = models.TextField(
+        "pontos de embarque",
+        blank=True,
+        default="",
+        help_text="Informe um ponto de embarque por linha.",
+    )
     is_published = models.BooleanField("publicar no site", default=False)
 
     class Meta:
@@ -44,6 +58,14 @@ class Departure(models.Model):
                 condition=models.Q(capacity__isnull=True) | models.Q(capacity__gte=1),
                 name="excursions_departure_capacity_positive",
                 violation_error_message="A capacidade deve ser maior que zero.",
+            ),
+            models.CheckConstraint(
+                condition=(
+                    models.Q(price_per_person__isnull=True)
+                    | models.Q(price_per_person__gte=0)
+                ),
+                name="excursions_departure_price_nonnegative",
+                violation_error_message="O preço por pessoa deve ser zero ou maior.",
             ),
             models.CheckConstraint(
                 condition=(

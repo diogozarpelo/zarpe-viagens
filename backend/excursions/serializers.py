@@ -16,3 +16,19 @@ class UpcomingDepartureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Departure
         fields = ("id", "itinerary", "status", "status_label", "starts_at")
+
+
+class ItineraryDetailSerializer(ItinerarySerializer):
+    class Meta(ItinerarySerializer.Meta):
+        fields = (*ItinerarySerializer.Meta.fields, "program")
+
+
+class DepartureDetailSerializer(UpcomingDepartureSerializer):
+    itinerary = ItineraryDetailSerializer(read_only=True)
+
+    class Meta(UpcomingDepartureSerializer.Meta):
+        fields = (
+            *UpcomingDepartureSerializer.Meta.fields,
+            "price_per_person",
+            "boarding_points",
+        )

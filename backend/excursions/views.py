@@ -1,10 +1,10 @@
 from django.db.models import F, Q
 from django.utils import timezone
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny
 
 from .models import Departure
-from .serializers import UpcomingDepartureSerializer
+from .serializers import DepartureDetailSerializer, UpcomingDepartureSerializer
 
 
 class UpcomingDepartureList(ListAPIView):
@@ -18,3 +18,9 @@ class UpcomingDepartureList(ListAPIView):
             .select_related("itinerary")
             .order_by(F("starts_at").asc(nulls_last=True), "pk")
         )
+
+
+class DepartureDetail(RetrieveAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = DepartureDetailSerializer
+    queryset = Departure.objects.filter(is_published=True).select_related("itinerary")
